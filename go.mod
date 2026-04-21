@@ -12,9 +12,12 @@ require (
 
 require (
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.11-20250717185734-6c6e0d3c608e.1 // indirect
+	github.com/danieljoos/wincred v1.2.3 // indirect
 	github.com/goccy/go-yaml v1.19.2 // indirect
+	github.com/godbus/dbus/v5 v5.2.2 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.9 // indirect
+	github.com/zalando/go-keyring v0.2.8 // indirect
 	golang.org/x/sys v0.39.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20260420184626-e10c466a9529 // indirect
 	google.golang.org/protobuf v1.36.11 // indirect
