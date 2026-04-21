@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark, .dark *));
+
+:root {
+  --t-background: #fafafa;
+  --t-foreground: #0a0a0a;
+  --t-card: #ffffff;
+  --t-card-foreground: #0a0a0a;
+  --t-primary: #535ae8;
+  --t-primary-foreground: #ffffff;
+  --t-secondary: #f5f5f5;
+  --t-secondary-foreground: #171717;
+  --t-muted: #f5f5f5;
+  --t-muted-foreground: #737373;
+  --t-accent: #f5f5f5;
+  --t-accent-foreground: #171717;
+  --t-destructive: #dc2626;
+  --t-destructive-foreground: #fef2f2;
+  --t-border: #e5e5e5;
+  --t-input: #e5e5e5;
+  --t-ring: #535ae8;
+}
+
+.dark {
+  --t-background: #0a0a0a;
+  --t-foreground: #fafafa;
+  --t-card: #171717;
+  --t-card-foreground: #fafafa;
+  --t-primary: #6b71ef;
+  --t-primary-foreground: #ffffff;
+  --t-secondary: #262626;
+  --t-secondary-foreground: #fafafa;
+  --t-muted: #262626;
+  --t-muted-foreground: #a3a3a3;
+  --t-accent: #404040;
+  --t-accent-foreground: #fafafa;
+  --t-destructive: #f87171;
+  --t-destructive-foreground: #fef2f2;
+  --t-border: #1f1f1f;
+  --t-input: #262626;
+  --t-ring: #6b71ef;
+}
+
+@theme {
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --color-background: var(--t-background);
+  --color-foreground: var(--t-foreground);
+  --color-card: var(--t-card);
+  --color-card-foreground: var(--t-card-foreground);
+  --color-primary: var(--t-primary);
+  --color-primary-foreground: var(--t-primary-foreground);
+  --color-secondary: var(--t-secondary);
+  --color-secondary-foreground: var(--t-secondary-foreground);
+  --color-muted: var(--t-muted);
+  --color-muted-foreground: var(--t-muted-foreground);
+  --color-accent: var(--t-accent);
+  --color-accent-foreground: var(--t-accent-foreground);
+  --color-destructive: var(--t-destructive);
+  --color-destructive-foreground: var(--t-destructive-foreground);
+  --color-border: var(--t-border);
+  --color-input: var(--t-input);
+  --color-ring: var(--t-ring);
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before {
+    border-color: var(--t-border);
+  }
+  body {
+    background-color: var(--t-background);
+    color: var(--t-foreground);
+  }
+}
+
+body {
+  font-family:
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+}
