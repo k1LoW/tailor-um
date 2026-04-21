@@ -9,6 +9,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 
 	"github.com/k1LoW/tailor-um/internal/server"
 	"github.com/k1LoW/tailor-um/internal/tailor"
@@ -52,6 +53,35 @@ func runStart(cmd *cobra.Command, args []string) error {
 
 	refreshToken := flagOrEnv(cmd, "refresh-token", "TAILOR_REFRESH_TOKEN")
 
+	// Fallback: read tokens from SDK config (~/.config/tailor-platform/config.yaml)
+	if token == "" {
+		slog.Info("No token provided, reading from SDK config")
+		at, rt, expiresAt, err := tailor.ReadSDKTokens()
+		if err != nil {
+			return fmt.Errorf("no token provided and failed to read SDK config: %w", err)
+		}
+		token = at
+		if refreshToken == "" {
+			refreshToken = rt
+		}
+		// If token is expired, refresh proactively
+		if tailor.IsTokenExpired(expiresAt) && refreshToken != "" {
+			slog.Info("SDK config token is expired, refreshing proactively")
+			tr, err := tailor.RefreshAccessToken(platformURL, refreshToken)
+			if err != nil {
+				return fmt.Errorf("token expired and refresh failed: %w", err)
+			}
+			token = tr.AccessToken
+			if tr.RefreshToken != "" {
+				refreshToken = tr.RefreshToken
+			}
+			newExpiresAt := time.Now().Add(time.Duration(tr.ExpiresIn) * time.Second).UTC().Format(time.RFC3339)
+			if err := tailor.WriteSDKTokens(token, refreshToken, newExpiresAt); err != nil {
+				slog.Warn("Failed to update SDK config tokens", "error", err)
+			}
+		}
+	}
+
 	if workspaceID == "" || appName == "" || machineUser == "" || token == "" {
 		return fmt.Errorf("workspace-id, app, machine-user, and token are all required")
 	}
@@ -63,6 +93,11 @@ func runStart(cmd *cobra.Command, args []string) error {
 		AccessToken:  token,
 		RefreshToken: refreshToken,
 		WorkspaceID:  workspaceID,
+		OnTokenRefresh: func(at, rt, expiresAt string) {
+			if err := tailor.WriteSDKTokens(at, rt, expiresAt); err != nil {
+				slog.Warn("Failed to update SDK config tokens", "error", err)
+			}
+		},
 	})
 	client.SetMachineUser(machineUser)
 

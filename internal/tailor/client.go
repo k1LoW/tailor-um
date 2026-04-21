@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"strings"
 	"sync"
+	"time"
 
 	"connectrpc.com/connect"
 
@@ -21,15 +22,19 @@ type Client struct {
 	machineUser string
 }
 
+// OnTokenRefreshFunc is called when a token is successfully refreshed.
+type OnTokenRefreshFunc func(accessToken, refreshToken, expiresAt string)
+
 type ClientConfig struct {
-	PlatformURL  string
-	AccessToken  string
-	RefreshToken string
-	WorkspaceID  string
+	PlatformURL    string
+	AccessToken    string
+	RefreshToken   string
+	WorkspaceID    string
+	OnTokenRefresh OnTokenRefreshFunc
 }
 
 func NewClient(cfg ClientConfig) *Client {
-	interceptor := newAutoRefreshInterceptor(cfg.PlatformURL, cfg.AccessToken, cfg.RefreshToken)
+	interceptor := newAutoRefreshInterceptor(cfg.PlatformURL, cfg.AccessToken, cfg.RefreshToken, cfg.OnTokenRefresh)
 	return &Client{
 		operator: tailorv1connect.NewOperatorServiceClient(
 			&http.Client{},
@@ -77,17 +82,19 @@ func (c *Client) ExecScript(ctx context.Context, name, code string, arg *string)
 
 // autoRefreshInterceptor handles bearer token auth with automatic refresh on unauthenticated errors.
 type autoRefreshInterceptor struct {
-	platformURL  string
-	token        string
-	refreshToken string
-	mu           sync.Mutex
+	platformURL    string
+	token          string
+	refreshToken   string
+	onTokenRefresh OnTokenRefreshFunc
+	mu             sync.Mutex
 }
 
-func newAutoRefreshInterceptor(platformURL, token, refreshToken string) *autoRefreshInterceptor {
+func newAutoRefreshInterceptor(platformURL, token, refreshToken string, onRefresh OnTokenRefreshFunc) *autoRefreshInterceptor {
 	return &autoRefreshInterceptor{
-		platformURL:  platformURL,
-		token:        token,
-		refreshToken: refreshToken,
+		platformURL:    platformURL,
+		token:          token,
+		refreshToken:   refreshToken,
+		onTokenRefresh: onRefresh,
 	}
 }
 
@@ -128,6 +135,12 @@ func (i *autoRefreshInterceptor) doRefresh() (string, error) {
 		i.refreshToken = tr.RefreshToken
 	}
 	slog.Info("Access token refreshed successfully")
+
+	if i.onTokenRefresh != nil {
+		expiresAt := time.Now().Add(time.Duration(tr.ExpiresIn) * time.Second).UTC().Format(time.RFC3339)
+		i.onTokenRefresh(tr.AccessToken, i.refreshToken, expiresAt)
+	}
+
 	return i.token, nil
 }
 

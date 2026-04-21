@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 )
 
 const (
@@ -60,6 +61,21 @@ func RefreshAccessToken(platformURL, refreshToken string) (*tokenResponse, error
 		return nil, fmt.Errorf("refresh token returned empty access_token")
 	}
 	return &tr, nil
+}
+
+// IsTokenExpired checks if a token_expires_at string indicates an expired token.
+func IsTokenExpired(expiresAt string) bool {
+	if expiresAt == "" {
+		return true
+	}
+	t, err := time.Parse(time.RFC3339, expiresAt)
+	if err != nil {
+		t, err = time.Parse("2006-01-02T15:04:05-07:00", expiresAt)
+		if err != nil {
+			return true
+		}
+	}
+	return time.Now().After(t)
 }
 
 func truncate(s string, n int) string {
