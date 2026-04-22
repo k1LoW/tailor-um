@@ -19,8 +19,8 @@ import (
 
 var startCmd = &cobra.Command{
 	Use:   "start",
-	Short: "Start the user management server",
-	Long:  "Start a Web UI server for managing users in a Tailor Platform application.",
+	Short: "Start the dataplane user management server",
+	Long:  "Start a Web UI server for managing dataplane users in a Tailor Platform application.",
 	RunE:  runStart,
 }
 

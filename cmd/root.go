@@ -31,8 +31,8 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:   "tailor-um",
-	Short: "User management CLI for Tailor Platform applications",
-	Long:  "tailor-um is a CLI tool that provides a Web UI for managing users in Tailor Platform applications.",
+	Short: "Dataplane user management tool for Tailor Platform applications",
+	Long:  "tailor-um is a dataplane user management tool that provides a Web UI for managing users in Tailor Platform applications.",
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.

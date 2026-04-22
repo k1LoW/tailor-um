@@ -1,6 +1,6 @@
 # tailor-um
 
-`tailor-um` is a **u**ser **m**anagement CLI for [Tailor Platform](https://docs.tailor.tech/) applications.
+`tailor-um` is a dataplane **u**ser **m**anagement tool for [Tailor Platform](https://docs.tailor.tech/) applications.
 
 It starts a local Web UI server that lets you manage users through a browser.
 
