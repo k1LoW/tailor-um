@@ -112,6 +112,11 @@ func handleSendPasswordResetEmail(state *AppState) http.HandlerFunc {
 			writeError(w, http.StatusBadRequest, "invalid JSON body")
 			return
 		}
+		redirectURI, _ := body["redirectUri"].(string) //nostyle:handlerrors
+		if redirectURI == "" {
+			writeError(w, http.StatusBadRequest, "redirectUri is required")
+			return
+		}
 		body["userId"] = id
 		code := tailor.BuildIdPSendPasswordResetEmailScript(state.IdPConfigName)
 		arg := mustJSON(body)

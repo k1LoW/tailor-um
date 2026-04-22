@@ -147,7 +147,15 @@ export default function IdPUserView({ config, id, navigate }: Props) {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => setShowResetForm(!showResetForm)}
+                    onClick={() => {
+                      if (showResetForm) {
+                        handleCloseResetForm();
+                      } else {
+                        setResetError(null);
+                        setResetSuccess(false);
+                        setShowResetForm(true);
+                      }
+                    }}
                   >
                     <Mail className="h-3 w-3" />
                     Password Reset Email
