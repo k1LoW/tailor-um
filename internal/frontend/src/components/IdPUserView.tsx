@@ -55,6 +55,13 @@ export default function IdPUserView({ config, id, navigate }: Props) {
   };
 
   useEffect(() => {
+    setShowResetForm(false);
+    setResetSending(false);
+    setResetSuccess(false);
+    setResetError(null);
+    setResetRedirectUri("");
+    setResetFromName("");
+    setResetSubject("");
     loadData();
   }, [id, config]);
 
