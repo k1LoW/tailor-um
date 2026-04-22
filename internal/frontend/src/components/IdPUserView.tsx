@@ -167,7 +167,7 @@ export default function IdPUserView({ config, id, navigate }: Props) {
                     <Mail className="h-3 w-3" />
                     Password Reset Email
                   </Button>
-                  <Button variant="outline" size="sm" onClick={() => setEditingIdPUser(true)}>
+                  <Button variant="outline" size="sm" onClick={() => { handleCloseResetForm(); setEditingIdPUser(true); }}>
                     <Pencil className="h-3 w-3" />
                     Edit
                   </Button>
