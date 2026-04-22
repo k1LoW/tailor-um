@@ -120,6 +120,6 @@ export function deleteIdPUser(id: string): Promise<void> {
 export function sendPasswordResetEmail(
   id: string,
   data: { redirectUri: string; fromName?: string; subject?: string },
-): Promise<boolean> {
+): Promise<{ ok: boolean }> {
   return apiPost(`/_/api/idp-users/${id}/send-password-reset-email`, data);
 }

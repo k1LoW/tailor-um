@@ -194,6 +194,9 @@ func TestBuildIdPSendPasswordResetEmailScript(t *testing.T) {
 	if !strings.Contains(script, "input.subject") {
 		t.Error("missing subject handling")
 	}
+	if !strings.Contains(script, "return { ok: true }") {
+		t.Error("missing stable JSON return value")
+	}
 }
 
 func TestBuildIdPDeleteScript(t *testing.T) {

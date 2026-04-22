@@ -165,7 +165,8 @@ func BuildIdPSendPasswordResetEmailScript(idpConfigName string) string {
   const input = { userId: args.userId, redirectUri: args.redirectUri };
   if (args.fromName !== undefined && args.fromName !== "") input.fromName = args.fromName;
   if (args.subject !== undefined && args.subject !== "") input.subject = args.subject;
-  return await client.sendPasswordResetEmail(input);
+  await client.sendPasswordResetEmail(input);
+  return { ok: true };
 };`, idpConfigName)
 }
 
