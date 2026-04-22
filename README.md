@@ -13,6 +13,7 @@ It starts a local Web UI server that lets you manage users through a browser.
 - Search by username (exact match)
 - Dark / light theme (follows Tailor Console design)
 - Token auto-refresh with SDK config integration
+- No GraphQL endpoint required: operates via `TestExecScript` RPC, so UserProfile types don't need to be exposed as GraphQL APIs
 - Single binary with no external dependencies
 - Auto-opens browser on start
 
