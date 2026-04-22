@@ -100,6 +100,32 @@ func handleUpdateIdPUser(state *AppState) http.HandlerFunc {
 	}
 }
 
+func handleSendPasswordResetEmail(state *AppState) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if !state.HasBuiltInIdP {
+			writeError(w, http.StatusNotFound, "Built-in IdP is not configured")
+			return
+		}
+		id := r.PathValue("id")
+		var body map[string]any
+		if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+			writeError(w, http.StatusBadRequest, "invalid JSON body")
+			return
+		}
+		body["userId"] = id
+		code := tailor.BuildIdPSendPasswordResetEmailScript(state.IdPConfigName)
+		arg := mustJSON(body)
+		result, err := state.Client.ExecScript(r.Context(), "send-password-reset-email.js", code, &arg)
+		if err != nil {
+			writeError(w, http.StatusInternalServerError, err.Error())
+			return
+		}
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		_, _ = io.WriteString(w, result) //nolint:gosec // API JSON response from TestExecScript, not user-controlled HTML //nostyle:handlerrors
+	}
+}
+
 func handleDeleteIdPUser(state *AppState) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if !state.HasBuiltInIdP {

@@ -116,3 +116,10 @@ export function updateIdPUser(id: string, data: Record<string, unknown>): Promis
 export function deleteIdPUser(id: string): Promise<void> {
   return apiDelete(`/_/api/idp-users/${id}`);
 }
+
+export function sendPasswordResetEmail(
+  id: string,
+  data: { redirectUri: string; fromName?: string; subject?: string },
+): Promise<boolean> {
+  return apiPost(`/_/api/idp-users/${id}/send-password-reset-email`, data);
+}
