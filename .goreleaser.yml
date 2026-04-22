@@ -1,0 +1,70 @@
+version: 2
+
+before:
+  hooks:
+    - go mod download
+    - go mod tidy
+    - go generate ./internal/static/
+
+builds:
+  - id: tailor-um-darwin
+    ldflags:
+      - -s -w -X github.com/k1LoW/tailor-um/version.Revision={{.ShortCommit}}
+    flags:
+      - -trimpath
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+  - id: tailor-um-linux
+    ldflags:
+      - -s -w -X github.com/k1LoW/tailor-um/version.Revision={{.ShortCommit}}
+    flags:
+      - -trimpath
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+    goarch:
+      - amd64
+      - arm64
+
+archives:
+  - id: tailor-um-archive
+    name_template: "{{ .ProjectName }}_v{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
+    format_overrides:
+      - goos: darwin
+        format: zip
+    files:
+      - LICENSE
+      - README.md
+      - CHANGELOG.md
+
+checksum:
+  name_template: checksums.txt
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+
+nfpms:
+  - id: tailor-um-nfpms
+    builds:
+      - tailor-um-linux
+    maintainer: "Ken'ichiro Oyama <k1lowxb@gmail.com>"
+    description: "User management CLI for Tailor Platform applications"
+    license: MIT
+    formats:
+      - deb
+      - rpm
+      - apk
+    bindir: /usr/bin
+
+release:
+  use_existing_draft: true

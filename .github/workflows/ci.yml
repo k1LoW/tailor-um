@@ -1,0 +1,43 @@
+name: build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  job-test:
+    name: Test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          package_json_file: internal/frontend/package.json
+      - name: Generate frontend assets
+        run: go generate ./internal/static/
+      - name: Run golangci-lint
+        if: runner.os == 'Linux'
+        uses: reviewdog/action-golangci-lint@v2
+        with:
+          fail_level: error
+          cache: false
+      - name: Run tests
+        run: make ci
+      - name: Run octocov
+        if: runner.os == 'Linux'
+        uses: k1LoW/octocov-action@v1
