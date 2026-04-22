@@ -4,6 +4,9 @@
 
 It starts a local Web UI server that lets you manage users through a browser.
 
+> [!IMPORTANT]
+> This is an **unofficial** and **experimental** tool.
+
 ## Features
 
 - Web UI for user profile CRUD operations (powered by embedded React SPA)
