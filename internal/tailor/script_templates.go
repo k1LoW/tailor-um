@@ -156,6 +156,20 @@ func BuildIdPDeleteScript(idpConfigName string) string {
 };`, idpConfigName)
 }
 
+// BuildIdPSendPasswordResetEmailScript generates JS code for sending a password reset email.
+func BuildIdPSendPasswordResetEmailScript(idpConfigName string) string {
+	return fmt.Sprintf(`export default async (args) => {
+  if (!args.userId) throw new Error("userId is required");
+  if (!args.redirectUri) throw new Error("redirectUri is required");
+  const client = new tailor.idp.Client({ namespace: "%s" });
+  const input = { userId: args.userId, redirectUri: args.redirectUri };
+  if (args.fromName !== undefined && args.fromName !== "") input.fromName = args.fromName;
+  if (args.subject !== undefined && args.subject !== "") input.subject = args.subject;
+  await client.sendPasswordResetEmail(input);
+  return { ok: true };
+};`, idpConfigName)
+}
+
 func quoteFields(fields []string) []string {
 	out := make([]string, len(fields))
 	copy(out, fields)

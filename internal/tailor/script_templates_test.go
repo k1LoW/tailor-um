@@ -180,6 +180,25 @@ func TestBuildIdPUpdateScript(t *testing.T) {
 	}
 }
 
+func TestBuildIdPSendPasswordResetEmailScript(t *testing.T) {
+	script := BuildIdPSendPasswordResetEmailScript("myIdP")
+	if !strings.Contains(script, `namespace: "myIdP"`) {
+		t.Error("missing namespace")
+	}
+	if !strings.Contains(script, "client.sendPasswordResetEmail(input)") {
+		t.Error("missing sendPasswordResetEmail call")
+	}
+	if !strings.Contains(script, "input.fromName") {
+		t.Error("missing fromName handling")
+	}
+	if !strings.Contains(script, "input.subject") {
+		t.Error("missing subject handling")
+	}
+	if !strings.Contains(script, "return { ok: true }") {
+		t.Error("missing stable JSON return value")
+	}
+}
+
 func TestBuildIdPDeleteScript(t *testing.T) {
 	script := BuildIdPDeleteScript("myIdP")
 	if !strings.Contains(script, `namespace: "myIdP"`) {

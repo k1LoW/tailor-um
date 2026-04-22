@@ -30,6 +30,7 @@ func NewHandler(state *AppState) http.Handler {
 	mux.HandleFunc("GET /_/api/idp-users/{id}", handleGetIdPUser(state))
 	mux.HandleFunc("PUT /_/api/idp-users/{id}", handleUpdateIdPUser(state))
 	mux.HandleFunc("DELETE /_/api/idp-users/{id}", handleDeleteIdPUser(state))
+	mux.HandleFunc("POST /_/api/idp-users/{id}/send-password-reset-email", handleSendPasswordResetEmail(state))
 
 	// Version
 	mux.HandleFunc("GET /_/api/version", handleVersion())
