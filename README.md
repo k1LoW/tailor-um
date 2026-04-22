@@ -18,10 +18,10 @@ It starts a local Web UI server that lets you manage users through a browser.
 
 ## Install
 
-**go install:**
+**homebrew tap:**
 
 ```console
-$ go install github.com/k1LoW/tailor-um@latest
+$ brew install k1LoW/tap/tailor-um
 ```
 
 **manually:**
