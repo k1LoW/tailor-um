@@ -19,7 +19,7 @@ type UserProfileInfo struct {
 	AttributesFields  []string
 }
 
-func (c *Client) GetUserProfileConfig(ctx context.Context, namespace string) (*UserProfileInfo, error) {
+func (c *Client) UserProfileConfig(ctx context.Context, namespace string) (*UserProfileInfo, error) {
 	slog.Info("RPC GetUserProfileConfig", "workspaceId", c.workspaceID, "namespace", namespace)
 	res, err := c.operator.GetUserProfileConfig(ctx, connect.NewRequest(&tailorv1.GetUserProfileConfigRequest{
 		WorkspaceId:   c.workspaceID,

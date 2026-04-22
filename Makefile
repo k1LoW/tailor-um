@@ -20,11 +20,13 @@ dev-frontend:
 
 lint:
 	golangci-lint run ./...
+	go vet -vettool=`which gostyle` -gostyle.config=$(PWD)/.gostyle.yml ./...
 	cd internal/frontend && pnpm install && pnpm run lint
 	cd internal/frontend && pnpm run fmt:check
 
 depsdev:
 	go install github.com/Songmu/gocredits/cmd/gocredits@latest
+	go install github.com/k1LoW/gostyle@latest
 
 credits: depsdev
 	go mod download

@@ -26,7 +26,7 @@ func handleListIdPUsers(state *AppState) http.HandlerFunc {
 		}
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		_, _ = io.WriteString(w, result) //nolint:gosec // API JSON response from TestExecScript, not user-controlled HTML
+		_, _ = io.WriteString(w, result) //nolint:gosec // API JSON response from TestExecScript, not user-controlled HTML //nostyle:handlerrors
 	}
 }
 
@@ -46,7 +46,7 @@ func handleGetIdPUser(state *AppState) http.HandlerFunc {
 		}
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		_, _ = io.WriteString(w, result) //nolint:gosec // API JSON response from TestExecScript, not user-controlled HTML
+		_, _ = io.WriteString(w, result) //nolint:gosec // API JSON response from TestExecScript, not user-controlled HTML //nostyle:handlerrors
 	}
 }
 
@@ -70,7 +70,7 @@ func handleCreateIdPUser(state *AppState) http.HandlerFunc {
 		}
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusCreated)
-		_, _ = io.WriteString(w, result) //nolint:gosec // API JSON response from TestExecScript, not user-controlled HTML
+		_, _ = io.WriteString(w, result) //nolint:gosec // API JSON response from TestExecScript, not user-controlled HTML //nostyle:handlerrors
 	}
 }
 
@@ -96,7 +96,7 @@ func handleUpdateIdPUser(state *AppState) http.HandlerFunc {
 		}
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		_, _ = io.WriteString(w, result) //nolint:gosec // API JSON response from TestExecScript, not user-controlled HTML
+		_, _ = io.WriteString(w, result) //nolint:gosec // API JSON response from TestExecScript, not user-controlled HTML //nostyle:handlerrors
 	}
 }
 
@@ -116,6 +116,6 @@ func handleDeleteIdPUser(state *AppState) http.HandlerFunc {
 		}
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		_, _ = io.WriteString(w, result) //nolint:gosec // API JSON response from TestExecScript, not user-controlled HTML
+		_, _ = io.WriteString(w, result) //nolint:gosec // API JSON response from TestExecScript, not user-controlled HTML //nostyle:handlerrors
 	}
 }

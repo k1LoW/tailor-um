@@ -17,7 +17,7 @@ type AppInfo struct {
 	URL              string
 }
 
-func (c *Client) GetApplication(ctx context.Context, appName string) (*AppInfo, error) {
+func (c *Client) Application(ctx context.Context, appName string) (*AppInfo, error) {
 	slog.Info("RPC GetApplication", "workspaceId", c.workspaceID, "appName", appName)
 	res, err := c.operator.GetApplication(ctx, connect.NewRequest(&tailorv1.GetApplicationRequest{
 		WorkspaceId:     c.workspaceID,

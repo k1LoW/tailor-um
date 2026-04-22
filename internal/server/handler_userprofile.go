@@ -24,7 +24,7 @@ func handleListUserProfiles(state *AppState) http.HandlerFunc {
 		}
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		_, _ = io.WriteString(w, result) //nolint:gosec // API JSON response from TestExecScript, not user-controlled HTML
+		_, _ = io.WriteString(w, result) //nolint:gosec // API JSON response from TestExecScript, not user-controlled HTML //nostyle:handlerrors
 	}
 }
 
@@ -41,7 +41,7 @@ func handleGetUserProfile(state *AppState) http.HandlerFunc {
 		}
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		_, _ = io.WriteString(w, result) //nolint:gosec // API JSON response from TestExecScript, not user-controlled HTML
+		_, _ = io.WriteString(w, result) //nolint:gosec // API JSON response from TestExecScript, not user-controlled HTML //nostyle:handlerrors
 	}
 }
 
@@ -62,7 +62,7 @@ func handleCreateUserProfile(state *AppState) http.HandlerFunc {
 		}
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusCreated)
-		_, _ = io.WriteString(w, result) //nolint:gosec // API JSON response from TestExecScript, not user-controlled HTML
+		_, _ = io.WriteString(w, result) //nolint:gosec // API JSON response from TestExecScript, not user-controlled HTML //nostyle:handlerrors
 	}
 }
 
@@ -85,7 +85,7 @@ func handleUpdateUserProfile(state *AppState) http.HandlerFunc {
 		}
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		_, _ = io.WriteString(w, result) //nolint:gosec // API JSON response from TestExecScript, not user-controlled HTML
+		_, _ = io.WriteString(w, result) //nolint:gosec // API JSON response from TestExecScript, not user-controlled HTML //nostyle:handlerrors
 	}
 }
 
@@ -101,7 +101,7 @@ func handleDeleteUserProfile(state *AppState) http.HandlerFunc {
 		}
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		_, _ = io.WriteString(w, result) //nolint:gosec // API JSON response from TestExecScript, not user-controlled HTML
+		_, _ = io.WriteString(w, result) //nolint:gosec // API JSON response from TestExecScript, not user-controlled HTML //nostyle:handlerrors
 	}
 }
 
@@ -115,6 +115,6 @@ func sortedFieldNames(fields map[string]*tailor.FieldInfo) []string {
 }
 
 func mustJSON(v any) string {
-	b, _ := json.Marshal(v)
+	b, _ := json.Marshal(v) //nostyle:handlerrors
 	return string(b)
 }

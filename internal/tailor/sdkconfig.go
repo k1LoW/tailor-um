@@ -43,7 +43,7 @@ func sdkConfigFilePath() string {
 	if xdg := os.Getenv("XDG_CONFIG_HOME"); xdg != "" {
 		return filepath.Join(xdg, "tailor-platform", "config.yaml")
 	}
-	home, _ := os.UserHomeDir()
+	home, _ := os.UserHomeDir() //nostyle:handlerrors
 	return filepath.Join(home, ".config", "tailor-platform", "config.yaml")
 }
 

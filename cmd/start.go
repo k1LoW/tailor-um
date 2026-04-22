@@ -47,9 +47,9 @@ func runStart(cmd *cobra.Command, args []string) error {
 	machineUser := flagOrEnv(cmd, "machine-user", "TAILOR_MACHINE_USER")
 	token := flagOrEnv(cmd, "token", "TAILOR_TOKEN")
 	platformURL := flagOrEnv(cmd, "platform-url", "PLATFORM_URL")
-	port, _ := cmd.Flags().GetInt("port")
-	bind, _ := cmd.Flags().GetString("bind")
-	noOpen, _ := cmd.Flags().GetBool("no-open")
+	port, _ := cmd.Flags().GetInt("port")       //nostyle:handlerrors
+	bind, _ := cmd.Flags().GetString("bind")     //nostyle:handlerrors
+	noOpen, _ := cmd.Flags().GetBool("no-open")  //nostyle:handlerrors
 
 	refreshToken := flagOrEnv(cmd, "refresh-token", "TAILOR_REFRESH_TOKEN")
 
@@ -102,7 +102,7 @@ func runStart(cmd *cobra.Command, args []string) error {
 	client.SetMachineUser(machineUser)
 
 	// 1. Get Application
-	appInfo, err := client.GetApplication(ctx, appName)
+	appInfo, err := client.Application(ctx, appName)
 	if err != nil {
 		return err
 	}
@@ -110,14 +110,14 @@ func runStart(cmd *cobra.Command, args []string) error {
 	client.SetAuthNamespace(appInfo.AuthNamespace)
 
 	// 2. Get UserProfile config
-	upInfo, err := client.GetUserProfileConfig(ctx, appInfo.AuthNamespace)
+	upInfo, err := client.UserProfileConfig(ctx, appInfo.AuthNamespace)
 	if err != nil {
 		return err
 	}
 	slog.Info("UserProfile config", "namespace", upInfo.TailorDBNamespace, "type", upInfo.TypeName, "usernameField", upInfo.UsernameField, "attributesFields", upInfo.AttributesFields)
 
 	// 3. Get TailorDB Type schema
-	typeSchema, err := client.GetTailorDBType(ctx, upInfo.TailorDBNamespace, upInfo.TypeName)
+	typeSchema, err := client.TailorDBType(ctx, upInfo.TailorDBNamespace, upInfo.TypeName)
 	if err != nil {
 		return err
 	}
@@ -169,7 +169,7 @@ func runStart(cmd *cobra.Command, args []string) error {
 	slog.Info("Server started", "url", url)
 
 	if !noOpen {
-		_ = browser.OpenURL(url)
+		_ = browser.OpenURL(url) //nostyle:handlerrors
 	}
 
 	if err := srv.Serve(ln); err != nil && err != http.ErrServerClosed {
@@ -179,7 +179,7 @@ func runStart(cmd *cobra.Command, args []string) error {
 }
 
 func flagOrEnv(cmd *cobra.Command, flagName, envName string) string {
-	v, _ := cmd.Flags().GetString(flagName)
+	v, _ := cmd.Flags().GetString(flagName) //nostyle:handlerrors
 	if v != "" {
 		return v
 	}
