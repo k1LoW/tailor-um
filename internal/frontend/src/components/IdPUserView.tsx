@@ -144,7 +144,11 @@ export default function IdPUserView({ config, id, navigate }: Props) {
               <CardTitle>IdP User Detail</CardTitle>
               {!editingIdPUser && (
                 <div className="flex items-center gap-2">
-                  <Button variant="outline" size="sm" onClick={() => setShowResetForm(!showResetForm)}>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowResetForm(!showResetForm)}
+                  >
                     <Mail className="h-3 w-3" />
                     Password Reset Email
                   </Button>
@@ -180,7 +184,9 @@ export default function IdPUserView({ config, id, navigate }: Props) {
                     </div>
                   )}
                   <div className="grid grid-cols-[200px_1fr] gap-y-0">
-                    <div className="py-3 text-sm font-medium text-muted-foreground border-b">ID</div>
+                    <div className="py-3 text-sm font-medium text-muted-foreground border-b">
+                      ID
+                    </div>
                     <div className="py-3 text-sm font-mono border-b">{user.id}</div>
                     <div className="py-3 text-sm font-medium text-muted-foreground border-b flex items-center gap-1.5">
                       Name
@@ -216,7 +222,9 @@ export default function IdPUserView({ config, id, navigate }: Props) {
                         <div className="space-y-1.5">
                           <Label htmlFor="reset-subject">
                             Subject
-                            <span className="text-muted-foreground font-normal ml-1">(optional, has default)</span>
+                            <span className="text-muted-foreground font-normal ml-1">
+                              (optional, has default)
+                            </span>
                           </Label>
                           <Input
                             id="reset-subject"
@@ -228,7 +236,9 @@ export default function IdPUserView({ config, id, navigate }: Props) {
                         <div className="space-y-1.5">
                           <Label htmlFor="reset-from-name">
                             Sender Name
-                            <span className="text-muted-foreground font-normal ml-1">(optional, defaults to &quot;Tailor Platform IdP&quot;)</span>
+                            <span className="text-muted-foreground font-normal ml-1">
+                              (optional, defaults to &quot;Tailor Platform IdP&quot;)
+                            </span>
                           </Label>
                           <Input
                             id="reset-from-name"
@@ -247,7 +257,12 @@ export default function IdPUserView({ config, id, navigate }: Props) {
                             {resetSending && <Loader2 className="h-3 w-3 animate-spin" />}
                             Send
                           </Button>
-                          <Button type="button" variant="ghost" size="sm" onClick={handleCloseResetForm}>
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            onClick={handleCloseResetForm}
+                          >
                             Cancel
                           </Button>
                         </div>
