@@ -18,9 +18,7 @@ export default function Layout({ appName, children }: Props) {
         <div className="flex h-14 items-center justify-between px-6">
           <h1 className="text-lg font-semibold tracking-tight text-foreground">
             tailor-um
-            <span className="ml-2 text-sm font-normal text-muted-foreground">
-              / {appName}
-            </span>
+            <span className="ml-2 text-sm font-normal text-muted-foreground">/ {appName}</span>
           </h1>
           <Button variant="outline" size="icon" onClick={toggleTheme}>
             {theme === "dark" ? (

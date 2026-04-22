@@ -113,13 +113,21 @@ func (i *autoRefreshInterceptor) WrapUnary(next connect.UnaryFunc) connect.Unary
 			slog.Info("Token rejected, attempting refresh")
 			newToken, refreshErr := i.doRefresh()
 			if refreshErr != nil {
-				return nil, fmt.Errorf("%w (token refresh also failed: %v, please provide a valid token via --token or TAILOR_TOKEN)", err, refreshErr)
+				return nil, fmt.Errorf("%w (token refresh also failed: %w, please provide a valid token via --token or TAILOR_TOKEN)", err, refreshErr)
 			}
 			req.Header().Set("Authorization", "Bearer "+newToken)
 			return next(ctx, req)
 		}
 		return resp, err
 	}
+}
+
+func (i *autoRefreshInterceptor) WrapStreamingClient(next connect.StreamingClientFunc) connect.StreamingClientFunc {
+	return next
+}
+
+func (i *autoRefreshInterceptor) WrapStreamingHandler(next connect.StreamingHandlerFunc) connect.StreamingHandlerFunc {
+	return next
 }
 
 func (i *autoRefreshInterceptor) doRefresh() (string, error) {
@@ -147,12 +155,4 @@ func (i *autoRefreshInterceptor) doRefresh() (string, error) {
 func (i *autoRefreshInterceptor) isUnauthenticated(err error) bool {
 	s := err.Error()
 	return strings.Contains(s, "unauthenticated") || strings.Contains(s, "Unauthenticated")
-}
-
-func (i *autoRefreshInterceptor) WrapStreamingClient(next connect.StreamingClientFunc) connect.StreamingClientFunc {
-	return next
-}
-
-func (i *autoRefreshInterceptor) WrapStreamingHandler(next connect.StreamingHandlerFunc) connect.StreamingHandlerFunc {
-	return next
 }

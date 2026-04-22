@@ -46,11 +46,7 @@ export default function UserProfileTable({ config, navigate }: Props) {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-lg font-semibold text-foreground">{config.typeName}</h2>
-          {data && (
-            <p className="text-sm text-muted-foreground">
-              {data.totalCount} record(s)
-            </p>
-          )}
+          {data && <p className="text-sm text-muted-foreground">{data.totalCount} record(s)</p>}
         </div>
         <Button
           size="sm"
@@ -91,9 +87,7 @@ export default function UserProfileTable({ config, navigate }: Props) {
         </Card>
       )}
 
-      {loading && !data && (
-        <p className="text-sm text-muted-foreground">Loading...</p>
-      )}
+      {loading && !data && <p className="text-sm text-muted-foreground">Loading...</p>}
 
       {data && (
         <>

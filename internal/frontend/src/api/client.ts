@@ -51,32 +51,25 @@ export function listUserProfiles(
   page = 0,
   size = 50,
   searchField?: string,
-  searchValue?: string
+  searchValue?: string,
 ): Promise<PaginatedResponse<UserProfile>> {
   const arg: Record<string, unknown> = { page, size };
   if (searchField && searchValue) {
     arg.searchField = searchField;
     arg.searchValue = searchValue;
   }
-  return apiGet(
-    `/_/api/user-profiles?arg=${encodeURIComponent(JSON.stringify(arg))}`
-  );
+  return apiGet(`/_/api/user-profiles?arg=${encodeURIComponent(JSON.stringify(arg))}`);
 }
 
 export function getUserProfile(id: string): Promise<UserProfile> {
   return apiGet(`/_/api/user-profiles/${id}`);
 }
 
-export function createUserProfile(
-  data: Record<string, unknown>
-): Promise<UserProfile> {
+export function createUserProfile(data: Record<string, unknown>): Promise<UserProfile> {
   return apiPost("/_/api/user-profiles", data);
 }
 
-export function updateUserProfile(
-  id: string,
-  data: Record<string, unknown>
-): Promise<UserProfile> {
+export function updateUserProfile(id: string, data: Record<string, unknown>): Promise<UserProfile> {
   return apiPut(`/_/api/user-profiles/${id}`, data);
 }
 
@@ -87,7 +80,7 @@ export function deleteUserProfile(id: string): Promise<void> {
 export async function listIdPUsers(
   first = 50,
   searchName?: string,
-  after?: string
+  after?: string,
 ): Promise<PaginatedResponse<IdPUser> & { nextPageToken?: string }> {
   const arg: Record<string, unknown> = { first };
   if (searchName) {
@@ -100,9 +93,7 @@ export async function listIdPUsers(
     users: IdPUser[];
     totalCount: number;
     nextPageToken?: string;
-  }>(
-    `/_/api/idp-users?arg=${encodeURIComponent(JSON.stringify(arg))}`
-  );
+  }>(`/_/api/idp-users?arg=${encodeURIComponent(JSON.stringify(arg))}`);
   return {
     collection: raw.users ?? [],
     totalCount: raw.totalCount ?? 0,
@@ -114,17 +105,11 @@ export function getIdPUser(id: string): Promise<IdPUser> {
   return apiGet(`/_/api/idp-users/${id}`);
 }
 
-export function createIdPUser(data: {
-  name: string;
-  password: string;
-}): Promise<IdPUser> {
+export function createIdPUser(data: { name: string; password: string }): Promise<IdPUser> {
   return apiPost("/_/api/idp-users", data);
 }
 
-export function updateIdPUser(
-  id: string,
-  data: Record<string, unknown>
-): Promise<IdPUser> {
+export function updateIdPUser(id: string, data: Record<string, unknown>): Promise<IdPUser> {
   return apiPut(`/_/api/idp-users/${id}`, data);
 }
 

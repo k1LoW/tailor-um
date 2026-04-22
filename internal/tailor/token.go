@@ -38,7 +38,7 @@ func RefreshAccessToken(platformURL, refreshToken string) (*tokenResponse, error
 	form.Set("client_id", clientID)
 	form.Set("refresh_token", refreshToken)
 
-	resp, err := http.Post(tokenEndpoint, "application/x-www-form-urlencoded", strings.NewReader(form.Encode()))
+	resp, err := http.Post(tokenEndpoint, "application/x-www-form-urlencoded", strings.NewReader(form.Encode())) //nolint:gosec // Token endpoint URL is constructed from known platform URL
 	if err != nil {
 		return nil, fmt.Errorf("refresh token request: %w", err)
 	}

@@ -69,11 +69,7 @@ export default function IdPUserTable({ navigate }: Props) {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-lg font-semibold text-foreground">IdP Users</h2>
-          {data && (
-            <p className="text-sm text-muted-foreground">
-              {data.totalCount} user(s)
-            </p>
-          )}
+          {data && <p className="text-sm text-muted-foreground">{data.totalCount} user(s)</p>}
         </div>
         <Button
           size="sm"
@@ -96,9 +92,7 @@ export default function IdPUserTable({ navigate }: Props) {
       {(showForm || editingUser) && (
         <Card>
           <CardHeader className="pb-4">
-            <CardTitle className="text-base">
-              {editingUser ? "Edit" : "Create"} IdP User
-            </CardTitle>
+            <CardTitle className="text-base">{editingUser ? "Edit" : "Create"} IdP User</CardTitle>
           </CardHeader>
           <CardContent>
             <IdPUserForm
@@ -115,9 +109,7 @@ export default function IdPUserTable({ navigate }: Props) {
         </Card>
       )}
 
-      {loading && !data && (
-        <p className="text-sm text-muted-foreground">Loading...</p>
-      )}
+      {loading && !data && <p className="text-sm text-muted-foreground">Loading...</p>}
 
       {data && (
         <>
@@ -178,25 +170,13 @@ export default function IdPUserTable({ navigate }: Props) {
           </Card>
           {showPagination && (
             <div className="flex items-center justify-between pt-4">
-              <p className="text-sm text-muted-foreground">
-                Page {currentPage + 1}
-              </p>
+              <p className="text-sm text-muted-foreground">Page {currentPage + 1}</p>
               <div className="flex items-center gap-1">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  disabled={!hasPrev}
-                  onClick={handlePrev}
-                >
+                <Button variant="outline" size="sm" disabled={!hasPrev} onClick={handlePrev}>
                   <ChevronLeft className="h-4 w-4" />
                   Prev
                 </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  disabled={!hasNext}
-                  onClick={handleNext}
-                >
+                <Button variant="outline" size="sm" disabled={!hasNext} onClick={handleNext}>
                   Next
                   <ChevronRight className="h-4 w-4" />
                 </Button>

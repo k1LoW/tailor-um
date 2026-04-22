@@ -46,7 +46,7 @@ func withRequestLog(next http.Handler) http.Handler {
 			start := time.Now()
 			rw := &statusRecorder{ResponseWriter: w, status: 200}
 			next.ServeHTTP(rw, r)
-			slog.Info("HTTP", "method", r.Method, "path", r.URL.Path, "status", rw.status, "duration", time.Since(start).String())
+			slog.Info("HTTP", "method", r.Method, "path", r.URL.Path, "status", rw.status, "duration", time.Since(start).String()) //nolint:gosec // HTTP method and path are safe for structured logging
 			return
 		}
 		next.ServeHTTP(w, r)

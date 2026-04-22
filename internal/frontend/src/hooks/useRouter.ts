@@ -20,9 +20,7 @@ function parseRoute(pathname: string): Route {
 }
 
 export function useRouter() {
-  const [route, setRoute] = useState<Route>(() =>
-    parseRoute(window.location.pathname)
-  );
+  const [route, setRoute] = useState<Route>(() => parseRoute(window.location.pathname));
 
   useEffect(() => {
     const onPopState = () => setRoute(parseRoute(window.location.pathname));

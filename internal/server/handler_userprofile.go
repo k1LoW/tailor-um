@@ -24,7 +24,7 @@ func handleListUserProfiles(state *AppState) http.HandlerFunc {
 		}
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		io.WriteString(w, result)
+		_, _ = io.WriteString(w, result) //nolint:gosec // API JSON response from TestExecScript, not user-controlled HTML
 	}
 }
 
@@ -41,7 +41,7 @@ func handleGetUserProfile(state *AppState) http.HandlerFunc {
 		}
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		io.WriteString(w, result)
+		_, _ = io.WriteString(w, result) //nolint:gosec // API JSON response from TestExecScript, not user-controlled HTML
 	}
 }
 
@@ -62,7 +62,7 @@ func handleCreateUserProfile(state *AppState) http.HandlerFunc {
 		}
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusCreated)
-		io.WriteString(w, result)
+		_, _ = io.WriteString(w, result) //nolint:gosec // API JSON response from TestExecScript, not user-controlled HTML
 	}
 }
 
@@ -85,7 +85,7 @@ func handleUpdateUserProfile(state *AppState) http.HandlerFunc {
 		}
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		io.WriteString(w, result)
+		_, _ = io.WriteString(w, result) //nolint:gosec // API JSON response from TestExecScript, not user-controlled HTML
 	}
 }
 
@@ -101,7 +101,7 @@ func handleDeleteUserProfile(state *AppState) http.HandlerFunc {
 		}
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		io.WriteString(w, result)
+		_, _ = io.WriteString(w, result) //nolint:gosec // API JSON response from TestExecScript, not user-controlled HTML
 	}
 }
 

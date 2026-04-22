@@ -8,12 +8,7 @@ interface Props {
   onPageChange: (page: number) => void;
 }
 
-export default function Pagination({
-  page,
-  pageSize,
-  totalCount,
-  onPageChange,
-}: Props) {
+export default function Pagination({ page, pageSize, totalCount, onPageChange }: Props) {
   const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
   const hasPrev = page > 0;
   const hasNext = page + 1 < totalPages;
@@ -23,8 +18,7 @@ export default function Pagination({
   return (
     <div className="flex items-center justify-between pt-4">
       <p className="text-sm text-muted-foreground">
-        {page * pageSize + 1}-{Math.min((page + 1) * pageSize, totalCount)} of{" "}
-        {totalCount}
+        {page * pageSize + 1}-{Math.min((page + 1) * pageSize, totalCount)} of {totalCount}
       </p>
       <div className="flex items-center gap-1">
         <Button

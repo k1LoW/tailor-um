@@ -57,9 +57,7 @@ export default function SearchResults({ config, query, navigate }: Props) {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold text-foreground">
-          Search results for "{query}"
-        </h2>
+        <h2 className="text-lg font-semibold text-foreground">Search results for "{query}"</h2>
       </div>
 
       {error && (
@@ -97,9 +95,7 @@ export default function SearchResults({ config, query, navigate }: Props) {
                     </div>
                     <div className="py-2 text-sm font-mono border-b">
                       <button
-                        onClick={() =>
-                          navigate(`/user-profiles/${profile.id}`)
-                        }
+                        onClick={() => navigate(`/user-profiles/${profile.id}`)}
                         className="text-primary hover:underline"
                       >
                         {profile.id}
@@ -110,17 +106,12 @@ export default function SearchResults({ config, query, navigate }: Props) {
                         <div className="py-2 text-sm font-medium text-muted-foreground border-b flex items-center gap-1">
                           {f}
                           {f === config.usernameField && (
-                            <Badge
-                              variant="secondary"
-                              className="text-[10px] py-0"
-                            >
+                            <Badge variant="secondary" className="text-[10px] py-0">
                               username
                             </Badge>
                           )}
                         </div>
-                        <div className="py-2 text-sm border-b">
-                          {formatValue(profile[f])}
-                        </div>
+                        <div className="py-2 text-sm border-b">{formatValue(profile[f])}</div>
                       </div>
                     ))}
                   </div>
@@ -158,9 +149,7 @@ export default function SearchResults({ config, query, navigate }: Props) {
                       </div>
                       <div className="py-2 text-sm font-mono border-b">
                         <button
-                          onClick={() =>
-                            navigate(`/idp-users/${idpUser.id}`)
-                          }
+                          onClick={() => navigate(`/idp-users/${idpUser.id}`)}
                           className="text-primary hover:underline"
                         >
                           {idpUser.id}
@@ -168,19 +157,12 @@ export default function SearchResults({ config, query, navigate }: Props) {
                       </div>
                       <div className="py-2 text-sm font-medium text-muted-foreground border-b flex items-center gap-1">
                         Name
-                        <Badge
-                          variant="secondary"
-                          className="text-[10px] py-0"
-                        >
+                        <Badge variant="secondary" className="text-[10px] py-0">
                           username
                         </Badge>
                       </div>
-                      <div className="py-2 text-sm border-b">
-                        {idpUser.name}
-                      </div>
-                      <div className="py-2 text-sm font-medium text-muted-foreground">
-                        Status
-                      </div>
+                      <div className="py-2 text-sm border-b">{idpUser.name}</div>
+                      <div className="py-2 text-sm font-medium text-muted-foreground">Status</div>
                       <div className="py-2 text-sm">
                         {idpUser.disabled ? (
                           <Badge variant="destructive">Disabled</Badge>

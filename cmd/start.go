@@ -149,8 +149,9 @@ func runStart(cmd *cobra.Command, args []string) error {
 	addr := fmt.Sprintf("%s:%d", bind, port)
 	handler := server.NewHandler(state)
 	srv := &http.Server{
-		Addr:    addr,
-		Handler: handler,
+		Addr:              addr,
+		Handler:           handler,
+		ReadHeaderTimeout: 10 * time.Second,
 	}
 
 	ln, err := net.Listen("tcp", addr)

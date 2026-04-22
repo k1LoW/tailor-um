@@ -32,7 +32,7 @@ export default function App() {
       if (e.key === "Enter") handleSearch();
       if (e.key === "Escape") handleClear();
     },
-    [handleSearch, handleClear]
+    [handleSearch, handleClear],
   );
 
   if (loading) {
@@ -48,22 +48,16 @@ export default function App() {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-6 max-w-md">
-          <h2 className="font-semibold text-destructive mb-2">
-            Failed to load configuration
-          </h2>
-          <p className="text-sm text-muted-foreground">
-            {error || "Unknown error"}
-          </p>
+          <h2 className="font-semibold text-destructive mb-2">Failed to load configuration</h2>
+          <p className="text-sm text-muted-foreground">{error || "Unknown error"}</p>
         </div>
       </div>
     );
   }
 
-  const isListPage =
-    route.page === "user-profiles" || route.page === "idp-users";
+  const isListPage = route.page === "user-profiles" || route.page === "idp-users";
 
-  const activeTab =
-    route.page === "idp-users" ? "idp-users" : "user-profiles";
+  const activeTab = route.page === "idp-users" ? "idp-users" : "user-profiles";
 
   return (
     <Layout appName={config.appName}>
@@ -92,25 +86,15 @@ export default function App() {
           </div>
 
           {searchQuery ? (
-            <SearchResults
-              config={config}
-              query={searchQuery}
-              navigate={navigate}
-            />
+            <SearchResults config={config} query={searchQuery} navigate={navigate} />
           ) : (
             <Tabs
               value={activeTab}
-              onValueChange={(v) =>
-                navigate(v === "idp-users" ? "/idp-users" : "/")
-              }
+              onValueChange={(v) => navigate(v === "idp-users" ? "/idp-users" : "/")}
             >
               <TabsList>
-                <TabsTrigger value="user-profiles">
-                  {config.typeName}
-                </TabsTrigger>
-                {config.hasBuiltInIdP && (
-                  <TabsTrigger value="idp-users">IdP Users</TabsTrigger>
-                )}
+                <TabsTrigger value="user-profiles">{config.typeName}</TabsTrigger>
+                {config.hasBuiltInIdP && <TabsTrigger value="idp-users">IdP Users</TabsTrigger>}
               </TabsList>
               <TabsContent value="user-profiles">
                 <UserProfileTable config={config} navigate={navigate} />
@@ -126,21 +110,11 @@ export default function App() {
       ) : (
         <>
           {route.page === "user-profile-view" && route.id && (
-            <UserProfileView
-              config={config}
-              id={route.id}
-              navigate={navigate}
-            />
+            <UserProfileView config={config} id={route.id} navigate={navigate} />
           )}
-          {route.page === "idp-user-view" &&
-            route.id &&
-            config.hasBuiltInIdP && (
-              <IdPUserView
-                config={config}
-                id={route.id}
-                navigate={navigate}
-              />
-            )}
+          {route.page === "idp-user-view" && route.id && config.hasBuiltInIdP && (
+            <IdPUserView config={config} id={route.id} navigate={navigate} />
+          )}
         </>
       )}
     </Layout>

@@ -132,7 +132,7 @@ func saveKeyringTokens(account, accessToken, refreshToken string) error {
 		AccessToken:  accessToken,
 		RefreshToken: refreshToken,
 	}
-	b, err := json.Marshal(data)
+	b, err := json.Marshal(data) //nolint:gosec // Token data is intentionally serialized for keyring storage
 	if err != nil {
 		return err
 	}

@@ -5,9 +5,7 @@ type Theme = "light" | "dark";
 function getInitialTheme(): Theme {
   const stored = localStorage.getItem("tailor-um-theme");
   if (stored === "dark" || stored === "light") return stored;
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
 export function useTheme() {

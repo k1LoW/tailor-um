@@ -56,12 +56,7 @@ export default function IdPUserForm({
           Name (email)
           <span className="text-destructive ml-1">*</span>
         </Label>
-        <Input
-          id="idp-name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
+        <Input id="idp-name" value={name} onChange={(e) => setName(e.target.value)} required />
       </div>
       <div className="space-y-1.5">
         <Label htmlFor="idp-password">

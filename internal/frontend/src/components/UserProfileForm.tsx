@@ -13,12 +13,7 @@ interface Props {
   onCancel: () => void;
 }
 
-export default function UserProfileForm({
-  config,
-  initialValues,
-  onSubmit,
-  onCancel,
-}: Props) {
+export default function UserProfileForm({ config, initialValues, onSubmit, onCancel }: Props) {
   const fieldNames = Object.keys(config.fields).sort();
   const [values, setValues] = useState<Record<string, unknown>>(() => {
     const init: Record<string, unknown> = {};
@@ -81,9 +76,7 @@ export default function UserProfileForm({
                 onChange={(v) => handleChange(f, v)}
               />
             ) : (
-              renderScalarInput(f, fi.type, fi.allowedValues, values[f], (v) =>
-                handleChange(f, v)
-              )
+              renderScalarInput(f, fi.type, fi.allowedValues, values[f], (v) => handleChange(f, v))
             )}
           </div>
         );
@@ -132,9 +125,7 @@ function ArrayInput({
       {items.map((item, i) => (
         <div key={i} className="flex items-center gap-2">
           <div className="flex-1">
-            {renderScalarInput(`item-${i}`, type, allowedValues, item, (v) =>
-              updateItem(i, v)
-            )}
+            {renderScalarInput(`item-${i}`, type, allowedValues, item, (v) => updateItem(i, v))}
           </div>
           <Button type="button" variant="ghost" size="icon" onClick={() => removeItem(i)}>
             <X className="h-4 w-4" />
@@ -154,7 +145,7 @@ function renderScalarInput(
   type: string,
   allowedValues: string[] | undefined,
   value: unknown,
-  onChange: (v: unknown) => void
+  onChange: (v: unknown) => void,
 ) {
   if (allowedValues && allowedValues.length > 0) {
     return (
@@ -192,9 +183,7 @@ function renderScalarInput(
           type="number"
           step="1"
           value={value === "" ? "" : Number(value)}
-          onChange={(e) =>
-            onChange(e.target.value === "" ? "" : parseInt(e.target.value))
-          }
+          onChange={(e) => onChange(e.target.value === "" ? "" : parseInt(e.target.value))}
         />
       );
     case "float":
@@ -204,9 +193,7 @@ function renderScalarInput(
           type="number"
           step="any"
           value={value === "" ? "" : Number(value)}
-          onChange={(e) =>
-            onChange(e.target.value === "" ? "" : parseFloat(e.target.value))
-          }
+          onChange={(e) => onChange(e.target.value === "" ? "" : parseFloat(e.target.value))}
         />
       );
     case "datetime":
@@ -219,11 +206,33 @@ function renderScalarInput(
         />
       );
     case "date":
-      return <Input id={id} type="date" value={String(value ?? "")} onChange={(e) => onChange(e.target.value)} />;
+      return (
+        <Input
+          id={id}
+          type="date"
+          value={String(value ?? "")}
+          onChange={(e) => onChange(e.target.value)}
+        />
+      );
     case "time":
-      return <Input id={id} type="time" step="1" value={String(value ?? "")} onChange={(e) => onChange(e.target.value)} />;
+      return (
+        <Input
+          id={id}
+          type="time"
+          step="1"
+          value={String(value ?? "")}
+          onChange={(e) => onChange(e.target.value)}
+        />
+      );
     default:
-      return <Input id={id} type="text" value={String(value ?? "")} onChange={(e) => onChange(e.target.value)} />;
+      return (
+        <Input
+          id={id}
+          type="text"
+          value={String(value ?? "")}
+          onChange={(e) => onChange(e.target.value)}
+        />
+      );
   }
 }
 

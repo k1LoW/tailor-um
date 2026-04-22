@@ -20,6 +20,8 @@ dev-frontend:
 
 lint:
 	golangci-lint run ./...
+	cd internal/frontend && pnpm install && pnpm run lint
+	cd internal/frontend && pnpm run fmt:check
 
 depsdev:
 	go install github.com/Songmu/gocredits/cmd/gocredits@latest

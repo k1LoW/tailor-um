@@ -36,12 +36,7 @@ export default function IdPUserView({ config, id, navigate }: Props) {
       .then(async (u) => {
         setUser(u);
         if (config.usernameField) {
-          const profiles = await listUserProfiles(
-            0,
-            1,
-            config.usernameField,
-            u.name
-          );
+          const profiles = await listUserProfiles(0, 1, config.usernameField, u.name);
           setLinkedProfile(profiles.collection[0] ?? null);
         }
       })
@@ -84,11 +79,7 @@ export default function IdPUserView({ config, id, navigate }: Props) {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-2 text-sm">
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => navigate("/idp-users")}
-        >
+        <Button variant="ghost" size="sm" onClick={() => navigate("/idp-users")}>
           <ArrowLeft className="h-4 w-4" />
           IdP Users
         </Button>
@@ -115,11 +106,7 @@ export default function IdPUserView({ config, id, navigate }: Props) {
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>IdP User Detail</CardTitle>
               {!editingIdPUser && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setEditingIdPUser(true)}
-                >
+                <Button variant="outline" size="sm" onClick={() => setEditingIdPUser(true)}>
                   <Pencil className="h-3 w-3" />
                   Edit
                 </Button>
@@ -136,11 +123,7 @@ export default function IdPUserView({ config, id, navigate }: Props) {
                     onCancel={() => setEditingIdPUser(false)}
                   />
                   <div className="pt-2 border-t">
-                    <Button
-                      variant="destructive"
-                      size="sm"
-                      onClick={handleDeleteIdPUser}
-                    >
+                    <Button variant="destructive" size="sm" onClick={handleDeleteIdPUser}>
                       <Trash2 className="h-3 w-3" />
                       Delete IdP User
                     </Button>
@@ -148,12 +131,8 @@ export default function IdPUserView({ config, id, navigate }: Props) {
                 </div>
               ) : (
                 <div className="grid grid-cols-[200px_1fr] gap-y-0">
-                  <div className="py-3 text-sm font-medium text-muted-foreground border-b">
-                    ID
-                  </div>
-                  <div className="py-3 text-sm font-mono border-b">
-                    {user.id}
-                  </div>
+                  <div className="py-3 text-sm font-medium text-muted-foreground border-b">ID</div>
+                  <div className="py-3 text-sm font-mono border-b">{user.id}</div>
                   <div className="py-3 text-sm font-medium text-muted-foreground border-b flex items-center gap-1.5">
                     Name
                     <Badge variant="secondary" className="text-[10px] py-0">
@@ -161,9 +140,7 @@ export default function IdPUserView({ config, id, navigate }: Props) {
                     </Badge>
                   </div>
                   <div className="py-3 text-sm border-b">{user.name}</div>
-                  <div className="py-3 text-sm font-medium text-muted-foreground">
-                    Status
-                  </div>
+                  <div className="py-3 text-sm font-medium text-muted-foreground">Status</div>
                   <div className="py-3 text-sm">
                     {user.disabled ? (
                       <Badge variant="destructive">Disabled</Badge>
@@ -183,11 +160,7 @@ export default function IdPUserView({ config, id, navigate }: Props) {
                 Linked {config.typeName}
               </CardTitle>
               {linkedProfile && !editingProfile && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setEditingProfile(true)}
-                >
+                <Button variant="outline" size="sm" onClick={() => setEditingProfile(true)}>
                   <Pencil className="h-3 w-3" />
                   Edit
                 </Button>
@@ -204,11 +177,7 @@ export default function IdPUserView({ config, id, navigate }: Props) {
                       onCancel={() => setEditingProfile(false)}
                     />
                     <div className="pt-2 border-t">
-                      <Button
-                        variant="destructive"
-                        size="sm"
-                        onClick={handleDeleteProfile}
-                      >
+                      <Button variant="destructive" size="sm" onClick={handleDeleteProfile}>
                         <Trash2 className="h-3 w-3" />
                         Delete {config.typeName}
                       </Button>
@@ -221,9 +190,7 @@ export default function IdPUserView({ config, id, navigate }: Props) {
                     </div>
                     <div className="py-3 text-sm font-mono border-b">
                       <button
-                        onClick={() =>
-                          navigate(`/user-profiles/${linkedProfile.id}`)
-                        }
+                        onClick={() => navigate(`/user-profiles/${linkedProfile.id}`)}
                         className="text-primary hover:underline"
                       >
                         {linkedProfile.id}
@@ -234,25 +201,18 @@ export default function IdPUserView({ config, id, navigate }: Props) {
                         <div className="py-3 text-sm font-medium text-muted-foreground border-b flex items-center gap-1.5">
                           {f}
                           {f === config.usernameField && (
-                            <Badge
-                              variant="secondary"
-                              className="text-[10px] py-0"
-                            >
+                            <Badge variant="secondary" className="text-[10px] py-0">
                               username
                             </Badge>
                           )}
                         </div>
-                        <div className="py-3 text-sm border-b">
-                          {formatValue(linkedProfile[f])}
-                        </div>
+                        <div className="py-3 text-sm border-b">{formatValue(linkedProfile[f])}</div>
                       </div>
                     ))}
                   </div>
                 )
               ) : (
-                <p className="text-sm text-muted-foreground">
-                  No linked {config.typeName} found
-                </p>
+                <p className="text-sm text-muted-foreground">No linked {config.typeName} found</p>
               )}
             </CardContent>
           </Card>
