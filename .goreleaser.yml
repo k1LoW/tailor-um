@@ -58,7 +58,7 @@ nfpms:
     builds:
       - tailor-um-linux
     maintainer: "Ken'ichiro Oyama <k1lowxb@gmail.com>"
-    description: "Dataplane user management tool for Tailor Platform applications"
+    description: "Dataplane user management tool for operation of Tailor Platform applications"
     license: MIT
     formats:
       - deb
