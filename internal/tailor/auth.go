@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log/slog"
 	"net/url"
+	"slices"
 	"strings"
 
 	"connectrpc.com/connect"
@@ -103,9 +104,9 @@ func extractIdPNamespace(providerURL string) string {
 		}
 	}
 	// Fallback: try last meaningful path segment
-	for i := len(parts) - 1; i >= 0; i-- {
-		if parts[i] != "" && parts[i] != ".well-known" && parts[i] != "openid-configuration" {
-			return parts[i]
+	for _, p := range slices.Backward(parts) {
+		if p != "" && p != ".well-known" && p != "openid-configuration" {
+			return p
 		}
 	}
 	return ""
