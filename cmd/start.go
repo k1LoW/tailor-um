@@ -57,6 +57,14 @@ func runStart(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("workspace-id, app, and machine-user are all required")
 	}
 
+	// A bare --refresh-token without --token cannot be combined with the SDK
+	// config flow (tailor-client-go would silently use the SDK config refresh
+	// token instead). Reject the combination explicitly rather than ignoring
+	// the user-supplied value.
+	if token == "" && refreshToken != "" {
+		return fmt.Errorf("--refresh-token/TAILOR_REFRESH_TOKEN requires --token/TAILOR_TOKEN to be set")
+	}
+
 	slog.Info("Connecting to Tailor Platform", "url", platformURL)
 
 	clientOpts := []tailorclient.Option{
