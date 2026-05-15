@@ -2,7 +2,7 @@ package version
 
 const (
 	Name    = "tailor-um"
-	Version = "0.2.2" //nostyle:repetition
+	Version = "0.3.0" //nostyle:repetition
 )
 
 var Revision = "HEAD"
