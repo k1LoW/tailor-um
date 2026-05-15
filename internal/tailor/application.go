@@ -19,7 +19,7 @@ type AppInfo struct {
 
 func (c *Client) Application(ctx context.Context, appName string) (*AppInfo, error) {
 	slog.Info("RPC GetApplication", "workspaceId", c.workspaceID, "appName", appName)
-	res, err := c.operator.GetApplication(ctx, connect.NewRequest(&tailorv1.GetApplicationRequest{
+	res, err := c.GetApplication(ctx, connect.NewRequest(&tailorv1.GetApplicationRequest{
 		WorkspaceId:     c.workspaceID,
 		ApplicationName: appName,
 	}))

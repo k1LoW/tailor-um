@@ -11,6 +11,7 @@ import (
 	"syscall"
 	"time"
 
+	tailorclient "github.com/k1LoW/tailor-client-go"
 	"github.com/k1LoW/tailor-um/internal/server"
 	"github.com/k1LoW/tailor-um/internal/tailor"
 	"github.com/pkg/browser"
@@ -35,7 +36,7 @@ func init() {
 	startCmd.Flags().Int("port", 18686, "Server port")
 	startCmd.Flags().String("bind", "localhost", "Bind address")
 	startCmd.Flags().Bool("no-open", false, "Do not open browser automatically")
-	startCmd.Flags().String("platform-url", "https://api.tailor.tech", "Tailor Platform API URL (env: PLATFORM_URL)")
+	startCmd.Flags().String("platform-url", tailorclient.DefaultPlatformURL, "Tailor Platform API URL (env: PLATFORM_URL)")
 }
 
 func runStart(cmd *cobra.Command, args []string) error {
@@ -46,59 +47,37 @@ func runStart(cmd *cobra.Command, args []string) error {
 	appName := flagOrEnv(cmd, "app", "TAILOR_APP_NAME")
 	machineUser := flagOrEnv(cmd, "machine-user", "TAILOR_MACHINE_USER")
 	token := flagOrEnv(cmd, "token", "TAILOR_TOKEN")
+	refreshToken := flagOrEnv(cmd, "refresh-token", "TAILOR_REFRESH_TOKEN")
 	platformURL := flagOrEnv(cmd, "platform-url", "PLATFORM_URL")
 	port, _ := cmd.Flags().GetInt("port")       //nostyle:handlerrors
-	bind, _ := cmd.Flags().GetString("bind")     //nostyle:handlerrors
-	noOpen, _ := cmd.Flags().GetBool("no-open")  //nostyle:handlerrors
+	bind, _ := cmd.Flags().GetString("bind")    //nostyle:handlerrors
+	noOpen, _ := cmd.Flags().GetBool("no-open") //nostyle:handlerrors
 
-	refreshToken := flagOrEnv(cmd, "refresh-token", "TAILOR_REFRESH_TOKEN")
-
-	// Fallback: read tokens from SDK config (~/.config/tailor-platform/config.yaml)
-	if token == "" {
-		slog.Info("No token provided, reading from SDK config")
-		at, rt, expiresAt, err := tailor.ReadSDKTokens()
-		if err != nil {
-			return fmt.Errorf("no token provided and failed to read SDK config: %w", err)
-		}
-		token = at
-		if refreshToken == "" {
-			refreshToken = rt
-		}
-		// If token is expired, refresh proactively
-		if tailor.IsTokenExpired(expiresAt) && refreshToken != "" {
-			slog.Info("SDK config token is expired, refreshing proactively")
-			tr, err := tailor.RefreshAccessToken(platformURL, refreshToken)
-			if err != nil {
-				return fmt.Errorf("token expired and refresh failed: %w", err)
-			}
-			token = tr.AccessToken
-			if tr.RefreshToken != "" {
-				refreshToken = tr.RefreshToken
-			}
-			newExpiresAt := time.Now().Add(time.Duration(tr.ExpiresIn) * time.Second).UTC().Format(time.RFC3339)
-			if err := tailor.WriteSDKTokens(token, refreshToken, newExpiresAt); err != nil {
-				slog.Warn("Failed to update SDK config tokens", "error", err)
-			}
-		}
-	}
-
-	if workspaceID == "" || appName == "" || machineUser == "" || token == "" {
-		return fmt.Errorf("workspace-id, app, machine-user, and token are all required")
+	if workspaceID == "" || appName == "" || machineUser == "" {
+		return fmt.Errorf("workspace-id, app, and machine-user are all required")
 	}
 
 	slog.Info("Connecting to Tailor Platform", "url", platformURL)
 
-	client := tailor.NewClient(tailor.ClientConfig{
-		PlatformURL:  platformURL,
-		AccessToken:  token,
-		RefreshToken: refreshToken,
-		WorkspaceID:  workspaceID,
-		OnTokenRefresh: func(at, rt, expiresAt string) {
-			if err := tailor.WriteSDKTokens(at, rt, expiresAt); err != nil {
-				slog.Warn("Failed to update SDK config tokens", "error", err)
-			}
-		},
-	})
+	clientOpts := []tailorclient.Option{
+		tailorclient.WithPlatformURL(platformURL),
+	}
+	if token != "" {
+		// Explicit tokens: do not touch the SDK config.
+		clientOpts = append(clientOpts, tailorclient.WithTokens(token, refreshToken))
+	} else {
+		// Fall back to SDK config tokens and write refreshed tokens back so
+		// other Tailor tools stay in sync.
+		slog.Info("No token provided, reading from SDK config")
+		clientOpts = append(clientOpts, tailorclient.WithTokenPersist())
+	}
+
+	cc, err := tailorclient.New(ctx, clientOpts...)
+	if err != nil {
+		return fmt.Errorf("create tailor client: %w", err)
+	}
+
+	client := tailor.NewClient(cc, workspaceID)
 	client.SetMachineUser(machineUser)
 
 	// 1. Get Application

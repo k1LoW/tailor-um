@@ -30,7 +30,7 @@ type TypeSchema struct {
 
 func (c *Client) TailorDBType(ctx context.Context, namespace, typeName string) (*TypeSchema, error) {
 	slog.Info("RPC GetTailorDBType", "workspaceId", c.workspaceID, "namespace", namespace, "typeName", typeName)
-	res, err := c.operator.GetTailorDBType(ctx, connect.NewRequest(&tailorv1.GetTailorDBTypeRequest{
+	res, err := c.GetTailorDBType(ctx, connect.NewRequest(&tailorv1.GetTailorDBTypeRequest{
 		WorkspaceId:      c.workspaceID,
 		NamespaceName:    namespace,
 		TailordbTypeName: typeName,
