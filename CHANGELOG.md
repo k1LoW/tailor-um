@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.3.0](https://github.com/k1LoW/tailor-um/compare/v0.2.2...v0.3.0) - 2026-05-15
+### Other Changes
+- refactor: use k1LoW/tailor-client-go for platform client by @k1LoW in https://github.com/k1LoW/tailor-um/pull/16
+
 ## [v0.2.2](https://github.com/k1LoW/tailor-um/compare/v0.2.1...v0.2.2) - 2026-05-14
 ### Dependency Updates ⬆️
 - chore(deps): bump the dependencies group with 2 updates by @dependabot[bot] in https://github.com/k1LoW/tailor-um/pull/8
