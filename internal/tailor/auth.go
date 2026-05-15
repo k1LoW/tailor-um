@@ -22,7 +22,7 @@ type UserProfileInfo struct {
 
 func (c *Client) UserProfileConfig(ctx context.Context, namespace string) (*UserProfileInfo, error) {
 	slog.Info("RPC GetUserProfileConfig", "workspaceId", c.workspaceID, "namespace", namespace)
-	res, err := c.operator.GetUserProfileConfig(ctx, connect.NewRequest(&tailorv1.GetUserProfileConfigRequest{
+	res, err := c.GetUserProfileConfig(ctx, connect.NewRequest(&tailorv1.GetUserProfileConfigRequest{
 		WorkspaceId:   c.workspaceID,
 		NamespaceName: namespace,
 	}))
@@ -57,7 +57,7 @@ func (c *Client) IsBuiltInIdP(ctx context.Context, authNamespace, idpConfigName 
 		return false, nil, nil
 	}
 	slog.Info("RPC ListAuthIDPConfigs", "workspaceId", c.workspaceID, "namespace", authNamespace, "idpConfigName", idpConfigName)
-	res, err := c.operator.ListAuthIDPConfigs(ctx, connect.NewRequest(&tailorv1.ListAuthIDPConfigsRequest{
+	res, err := c.ListAuthIDPConfigs(ctx, connect.NewRequest(&tailorv1.ListAuthIDPConfigsRequest{
 		WorkspaceId:   c.workspaceID,
 		NamespaceName: authNamespace,
 	}))
