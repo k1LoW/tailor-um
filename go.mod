@@ -3,8 +3,8 @@ module github.com/k1LoW/tailor-um
 go 1.26.1
 
 require (
-	buf.build/gen/go/tailor-inc/tailor/protocolbuffers/go v1.36.11-20260422080219-14f79068307f.1
-	connectrpc.com/connect v1.19.2
+	buf.build/gen/go/tailor-inc/tailor/protocolbuffers/go v1.36.11-20260520024532-61453b832d9a.1
+	connectrpc.com/connect v1.20.0
 	github.com/k1LoW/tailor-client-go v0.1.0
 	github.com/pkg/browser v0.0.0-20240102092130-5ac0b6a4141c
 	github.com/spf13/cobra v1.10.2
