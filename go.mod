@@ -3,16 +3,16 @@ module github.com/k1LoW/tailor-um
 go 1.26.1
 
 require (
-	buf.build/gen/go/tailor-inc/tailor/protocolbuffers/go v1.36.11-20260527033653-01f32960fef8.1
+	buf.build/gen/go/tailor-inc/tailor/protocolbuffers/go v1.36.11-20260608075401-33acabb6a1dc.1
 	connectrpc.com/connect v1.20.0
-	github.com/k1LoW/tailor-client-go v0.1.0
+	github.com/k1LoW/tailor-client-go v0.3.0
 	github.com/pkg/browser v0.0.0-20240102092130-5ac0b6a4141c
 	github.com/spf13/cobra v1.10.2
 )
 
 require (
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.11-20250717185734-6c6e0d3c608e.1 // indirect
-	buf.build/gen/go/tailor-inc/tailor/connectrpc/go v1.19.2-20260422080219-14f79068307f.1 // indirect
+	buf.build/gen/go/tailor-inc/tailor/connectrpc/go v1.20.0-20260527033653-01f32960fef8.1 // indirect
 	github.com/danieljoos/wincred v1.2.3 // indirect
 	github.com/goccy/go-yaml v1.19.2 // indirect
 	github.com/godbus/dbus/v5 v5.2.2 // indirect
