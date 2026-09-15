@@ -3,16 +3,16 @@ module github.com/k1LoW/tailor-um
 go 1.26.1
 
 require (
-	buf.build/gen/go/tailor-inc/tailor/protocolbuffers/go v1.36.11-20260610081850-0008dc274593.1
-	connectrpc.com/connect v1.20.0
-	github.com/k1LoW/tailor-client-go v0.3.1
+	buf.build/gen/go/tailor-inc/tailor/protocolbuffers/go v1.36.12-20260908075330-54a7d553e9a3.2
+	connectrpc.com/connect v1.21.0
+	github.com/k1LoW/tailor-client-go v0.4.0
 	github.com/pkg/browser v0.0.0-20240102092130-5ac0b6a4141c
 	github.com/spf13/cobra v1.10.2
 )
 
 require (
-	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.11-20250717185734-6c6e0d3c608e.1 // indirect
-	buf.build/gen/go/tailor-inc/tailor/connectrpc/go v1.20.0-20260610081850-0008dc274593.1 // indirect
+	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.12-20250717185734-6c6e0d3c608e.2 // indirect
+	buf.build/gen/go/tailor-inc/tailor/connectrpc/go v1.20.0-20260904015633-0ba2ac252f7d.1 // indirect
 	github.com/danieljoos/wincred v1.2.3 // indirect
 	github.com/goccy/go-yaml v1.19.2 // indirect
 	github.com/godbus/dbus/v5 v5.2.2 // indirect
@@ -21,5 +21,5 @@ require (
 	github.com/zalando/go-keyring v0.2.8 // indirect
 	golang.org/x/sys v0.39.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20260511170946-3700d4141b60 // indirect
-	google.golang.org/protobuf v1.36.11 // indirect
+	google.golang.org/protobuf v1.36.12 // indirect
 )
