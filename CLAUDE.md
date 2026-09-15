@@ -40,7 +40,7 @@ Single Go binary with an embedded React SPA. The Go server serves both the API (
 - `cmd/start.go` - CLI entry point. Resolves tokens (flag/env/SDK config/keyring), discovers application schema from Controlplane, starts HTTP server.
 - `internal/tailor/client.go` - Tailor Platform OperatorService client with auto-refresh interceptor. On unauthenticated errors, refreshes the token and retries.
 - `internal/tailor/application.go`, `auth.go`, `tailordb.go` - Controlplane RPC wrappers to fetch Application, Auth/IdP config, and TailorDB type schema.
-- `internal/tailor/script_templates.go` - Generates JavaScript code strings for `TestExecScript` RPC. UserProfile CRUD uses `tailordb.Client` SQL, IdP user CRUD uses `tailor.idp.Client`.
+- `internal/tailor/script_templates.go` - Generates JavaScript code strings for `ExecScript` RPC. UserProfile CRUD uses `tailordb.Client` SQL, IdP user CRUD uses `tailor.idp.Client`.
 - `internal/tailor/sdkconfig.go` - Reads/writes Tailor SDK config (`~/.config/tailor-platform/config.yaml`). Supports both file-based (v1) and keyring-based (v2) token storage.
 - `internal/tailor/token.go` - OAuth2 token refresh via platform token endpoint.
 - `internal/server/` - HTTP handlers. `server.go` registers routes + SPA fallback. Handlers delegate to `ExecScript` for all data operations.
@@ -61,7 +61,7 @@ Located in `internal/frontend/`. Built with React 19, Vite 8, Tailwind CSS 4, sh
 
 1. Frontend calls `/_/api/*` endpoints
 2. Go handler builds a JavaScript script from templates (`script_templates.go`)
-3. Script is executed on the platform via `TestExecScript` RPC
+3. Script is executed on the platform via `ExecScript` RPC
 4. Result (JSON string) is returned directly to the frontend
 
 ### Token Resolution Order

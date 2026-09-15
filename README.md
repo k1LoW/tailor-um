@@ -16,7 +16,7 @@ It starts a local Web UI server that lets you manage users through a browser.
 - Search by username (exact match)
 - Dark / light theme (follows Tailor Console design)
 - Token auto-refresh with SDK config integration
-- No GraphQL endpoint required: operates via `TestExecScript` RPC, so UserProfile types don't need to be exposed as GraphQL APIs
+- No GraphQL endpoint required: operates via `ExecScript` RPC, so UserProfile types don't need to be exposed as GraphQL APIs
 - Single binary with no external dependencies
 - Auto-opens browser on start
 
@@ -100,7 +100,7 @@ All required flags can also be set via environment variables:
 4. Retrieves the TailorDB Type schema (field names, types, constraints)
 5. Checks if the Application uses a Built-in IdP
 6. Starts an HTTP server with an embedded React SPA
-7. The Web UI calls the local API server, which executes CRUD operations via `TestExecScript` RPC
+7. The Web UI calls the local API server, which executes CRUD operations via `ExecScript` RPC
 
 If a Built-in IdP is configured, the Web UI shows an additional tab for managing IdP users (create, update password, disable, delete). User profiles and IdP users are linked by the username field mapping.
 

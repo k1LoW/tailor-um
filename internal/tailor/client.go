@@ -36,9 +36,9 @@ func (c *Client) WorkspaceID() string {
 	return c.workspaceID
 }
 
-// ExecScript executes a JavaScript code via TestExecScript RPC.
+// ExecScript executes a JavaScript code via ExecScript RPC.
 func (c *Client) ExecScript(ctx context.Context, name, code string, arg *string) (string, error) {
-	req := &tailorv1.TestExecScriptRequest{
+	req := &tailorv1.ExecScriptRequest{
 		WorkspaceId: c.workspaceID,
 		Name:        name,
 		Code:        code,
@@ -50,10 +50,11 @@ func (c *Client) ExecScript(ctx context.Context, name, code string, arg *string)
 	if arg != nil {
 		req.Arg = arg
 	}
-	slog.Info("RPC TestExecScript", "name", name)
-	res, err := c.TestExecScript(ctx, connect.NewRequest(req))
+	slog.Info("RPC ExecScript", "name", name)
+	// Qualify with c.Client because this method shadows the embedded client's ExecScript.
+	res, err := c.Client.ExecScript(ctx, connect.NewRequest(req))
 	if err != nil {
-		slog.Error("RPC TestExecScript failed", "name", name, "error", err)
+		slog.Error("RPC ExecScript failed", "name", name, "error", err)
 		return "", err
 	}
 	return res.Msg.GetResult(), nil
