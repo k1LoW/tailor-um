@@ -57,8 +57,6 @@ jobs:
         uses: k1LoW/gostyle-action@e1b847d37b3041c5fdb8b911bcf00b350779ca61 # v1.5.1
         with:
           config-file: .gostyle.yml
-          # Not latest because gostyle v0.26.1 and later require Go 1.26.8 or newer, which the go directive in go.mod does not satisfy.
-          version: v0.26.0
 
       - name: Run tests
         run: make ci

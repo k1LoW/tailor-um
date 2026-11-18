@@ -1,6 +1,6 @@
 module github.com/k1LoW/tailor-um
 
-go 1.26.1
+go 1.26.8
 
 require (
 	buf.build/gen/go/tailor-inc/tailor/protocolbuffers/go v1.36.12-20260908075330-54a7d553e9a3.2
