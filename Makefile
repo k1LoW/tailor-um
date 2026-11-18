@@ -24,9 +24,8 @@ lint:
 	cd internal/frontend && pnpm install && pnpm run lint
 	cd internal/frontend && pnpm run fmt:check
 
-# Not @latest because gostyle v0.26.1 and later require Go 1.26.8 or newer, which the go directive in go.mod does not satisfy.
 depsdev:
-	go install github.com/k1LoW/gostyle@v0.26.0
+	go install github.com/k1LoW/gostyle@latest
 
 credits: generate
 	go install github.com/Songmu/gocredits/cmd/gocredits@v1.0.0
