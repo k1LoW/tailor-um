@@ -1,5 +1,14 @@
 # Changelog
 
+## [v0.4.1](https://github.com/k1LoW/tailor-um/compare/v0.4.0...v0.4.1) - 2026-11-18
+
+### Dependency Updates ⬆️
+- chore(deps-dev): bump vite from 8.2.0 to 8.2.4 in /internal/frontend by @dependabot[bot] in https://github.com/k1LoW/tailor-um/pull/55
+### Other Changes
+- ci: regenerate CREDITS with gocredits v1.0.0 in prerelease_for_tagpr by @k1LoW in https://github.com/k1LoW/tailor-um/pull/48
+- ci: pin gostyle to v0.26.0 by @k1LoW in https://github.com/k1LoW/tailor-um/pull/57
+- chore: raise the go directive to 1.26.8 instead of pinning gostyle by @k1LoW in https://github.com/k1LoW/tailor-um/pull/58
+
 ## [v0.4.0](https://github.com/k1LoW/tailor-um/compare/v0.3.0...v0.4.0) - 2026-09-15
 
 ### Dependency Updates ⬆️
